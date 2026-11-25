@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ug">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Learn AI, IT and machine learning English vocabulary in Uyghur, one sentence at a time.">
+<title>TechTil — تېخنىكا ئىنگلىزچىسى</title>
+<link rel="stylesheet" href="style.css?v=interviews">
+<script src="vocabulary.js" defer></script>
+<script src="interview.js" defer></script>
+<script src="audio/pronunciation-natural.js" defer></script>
+<script src="audio/pronunciation-interview.js" defer></script>
+<script src="app.js?v=interviews" defer></script>
+</head>
+<body>
+<div class="layout">
+<aside>
+<a class="brand" href="#learn" aria-label="TechTil"><span class="logo">⌘</span><span>Tech<span class="accent">Til</span><small>ENGLISH LAB</small></span></a>
+<nav aria-label="Navigation">
+<button data-page="learn" class="nav active"><span>▤</span> Lessons <b lang="ug" dir="rtl">دەرسلەر</b></button>
+<button data-page="glossary" class="nav"><span>▥</span> Glossary <b lang="ug" dir="rtl">سۆزلۈك</b></button>
+<button data-page="practice" class="nav"><span>◇</span> Practice <b lang="ug" dir="rtl">مەشىق</b></button>
+</nav>
+<div class="sideprogress"><div>Course progress <span id="score"></span></div><progress id="progress" value="0" max="12"></progress><small dir="rtl">ئۆگىنىش نەتىجىسى</small></div>
+</aside>
+<main>
+<header class="top"><span>WORKSPACE <i>/</i> <strong id="crumb">Lessons</strong></span><label class="audio-speed" for="audio-speed">
+<span>Playback speed <span lang="ug" dir="rtl">ئوقۇش سۈرئىتى</span></span>
+<select id="audio-speed">
+<option value="slow">Slow 0.8× · ئاستا</option>
+<option value="normal" selected>Normal 1× · نورمال</option>
+<option value="fast">Fast 1.2× · تېز</option>
+</select>
+</label></header>
+<section class="hero">
+<div class="hero-content"><span class="tag">TECH ENGLISH</span><h1 dir="rtl">تېخنىكا ئىنگلىزچىسى</h1><p lang="en">Learn technical English, one sentence at a time.</p><div class="chips"><span>✦ AI</span><span>▣ IT</span><span>◈ Machine Learning</span></div></div>
+<div class="art" aria-hidden="true"><div class="orbit orbit1"></div><div class="orbit orbit2"></div><div class="orbit orbit3"></div><div class="core">✧</div><i class="star s1">✦</i><i class="star s2">✦</i><i class="star s3">✧</i><i class="star s4">+</i></div>
+</section>
+<section id="workspace" aria-label="Learning workspace"></section>
+<p id="sound-status" class="sound-status" role="status"></p>
+<footer>TechTil <a href="audio/credits.html">Audio credits · ئاۋاز مەنبەسى</a></footer>
+</main>
+</div>
+</body></html>
