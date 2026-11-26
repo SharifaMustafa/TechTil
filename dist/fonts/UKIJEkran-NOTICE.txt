@@ -1,0 +1,5 @@
+UKIJ Ekran Regular
+Copyright Uyghur Computer Science Association (http://www.ukij.org).
+The unmodified font identifies its license as LGPL in its metadata.
+Source: https://github.com/UyCode/uyfonts/blob/main/UKIJEkran.ttf
+See LGPL-2.1.txt for the LGPL text.
