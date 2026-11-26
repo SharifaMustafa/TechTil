@@ -23,8 +23,8 @@ def read_entries():
 const fs = require('node:fs');
 const vm = require('node:vm');
 const read = name => fs.readFileSync('dist/' + name, 'utf8');
-const app = read('app.js');
-const starter = app.slice(0, app.indexOf('const lessons ='));
+const lessonSource = read('lessons.js');
+const starter = lessonSource.slice(0, lessonSource.indexOf('const interviewStart'));
 const extract = `
 const plans = {en: [], ug: [], examples: []};
 for (const entry of starterLessons) {

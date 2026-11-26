@@ -1,26 +1,5 @@
 'use strict';
 
-const starterLessons = [
-  ['AI','Artificial intelligence','سۈنئىي ئەقىل','Technology that performs tasks such as recognizing speech or generating text.','ئاۋازنى تونۇش ياكى تېكىست يېزىش قاتارلىق ئىشلارنى قىلالايدىغان تېخنىكا.','Artificial intelligence can recognize speech.','سۈنئىي ئەقىل ئاۋازنى تونۇيالايدۇ.','Artificial intelligence'],
-  ['AI','Prompt','كۆرسەتمە','An instruction or question you give an AI system.','AI سىستېمىسىغا بېرىدىغان كۆرسەتمە ياكى سوئال.','Write a clear prompt for the assistant.','ياردەمچىگە ئېنىق كۆرسەتمە يېزىڭ.','prompt'],
-  ['AI','Chatbot','سۆھبەت بوتى','A program that talks with users through text or voice.','تېكىست ياكى ئاۋاز ئارقىلىق ئىشلەتكۈچىلەر بىلەن سۆھبەتلىشىدىغان پروگرامما.','The chatbot answers simple questions.','سۆھبەت بوتى ئاددىي سوئاللارغا جاۋاب بېرىدۇ.','chatbot'],
-  ['AI','Large language model','چوڭ تىل مودېلى','A model trained on large amounts of text to process and generate language.','تىلنى بىر تەرەپ قىلىش ۋە تېكىست يېزىش ئۈچۈن كۆپ مىقداردا تېكىست بىلەن مەشىقلەندۈرۈلگەن مودېل.','A large language model can summarize text.','چوڭ تىل مودېلى تېكىستنى قىسقارتىپ خۇلاسىلىيەلەيدۇ.','large language model'],
-  ['IT','Network','تور','A group of connected devices that can exchange data.','ئۆزئارا سانلىق مەلۇمات ئالماشتۇرالايدىغان، ئۇلانغان ئۈسكۈنىلەر توپى.','The network connects our computers.','تور كومپيۇتېرلىرىمىزنى بىر-بىرىگە ئۇلايدۇ.','network'],
-  ['IT','Server','مۇلازىمېتىر','A computer or program that provides data or services to clients.','خېرىدار پروگراممىلارغا سانلىق مەلۇمات ياكى مۇلازىمەت بېرىدىغان كومپيۇتېر ياكى پروگرامما.','The server sends the page to my browser.','مۇلازىمېتىر بەتنى تور كۆرگۈچۈمگە ئەۋەتىدۇ.','server'],
-  ['IT','Database','ساندان','An organized collection of data that can be searched and updated.','ئىزدەشكە ۋە يېڭىلاشقا بولىدىغان تەرتىپلىك سانلىق مەلۇماتلار توپى.','We store records in a database.','خاتىرىلەرنى سانداندا ساقلايمىز.','database'],
-  ['IT','Backup','زاپاس نۇسخا','A copy of data kept so it can be restored if the original is lost.','ئەسلى سانلىق مەلۇمات يوقاپ كەتسە ئەسلىگە كەلتۈرۈش ئۈچۈن ساقلىنىدىغان نۇسخا.','Make a backup before the update.','يېڭىلاشتىن بۇرۇن زاپاس نۇسخا ئېلىڭ.','backup'],
-  ['Machine Learning','Machine learning','ماشىنا ئۆگىنىشى','A field that builds systems that learn patterns from data.','سانلىق مەلۇماتتىن قېلىپلارنى ئۆگىنىدىغان سىستېمىلارنى قۇرۇش ساھەسى.','Machine learning can identify patterns in data.','ماشىنا ئۆگىنىشى سانلىق مەلۇماتتىكى قېلىپلارنى تونۇيالايدۇ.','Machine learning'],
-  ['Machine Learning','Dataset','سانلىق مەلۇمات توپلىمى','A collection of examples, such as images, text, or numbers.','رەسىم، تېكىست ياكى سانغا ئوخشاش مىساللارنىڭ توپلىمى.','The dataset contains pictures of animals.','سانلىق مەلۇمات توپلىمىدا ھايۋانلارنىڭ رەسىملىرى بار.','dataset'],
-  ['Machine Learning','Training','مەشىقلەندۈرۈش','The process of adjusting a model so it learns from examples.','مودېلنى مىساللاردىن ئۆگىنەلەيدىغان قىلىپ تەڭشەش جەريانى.','Training helps the model learn patterns.','مەشىقلەندۈرۈش مودېلنىڭ قېلىپلارنى ئۆگىنىشىگە ياردەم بېرىدۇ.','Training'],
-  ['Machine Learning','Prediction','مۆلچەر','An output a model produces for a given input.','مودېلنىڭ كىرگۈزۈلگەن مەلۇماتقا قاراپ چىقارغان نەتىجىسى.','The model makes a prediction about tomorrow’s weather.','مودېل ئەتىكى ھاۋارايى ھەققىدە مۆلچەر چىقىرىدۇ.','prediction']
-].map(([topic, term, translation, definition, explanation, example, meaning, blank], id) =>
-  ({id, topic, term, translation, definition, explanation, example, meaning, blank}));
-
-const interviewStart = starterLessons.length + vocabulary.length;
-const lessons = starterLessons.concat(
-  vocabulary.map((entry, offset) => ({...entry, id: starterLessons.length + offset})),
-  interviewVocabulary.map((entry, offset) => ({...entry, id: interviewStart + offset}))
-);
 const interviewLessons = lessons.slice(interviewStart);
 const lessonGroups = new Map();
 for (const lesson of lessons) {
@@ -77,7 +56,7 @@ const current = () => filtered()[index];
 const ug = (value, cls = '') => '<p lang="ug" dir="rtl" class="' + cls + '">' + value + '</p>';
 const btn = (action, label, cls = 'secondary', attrs = '') => '<button type="button" class="' + cls + '" data-act="' + action + '" ' + attrs + '>' + label + '</button>';
 const spoken = (lesson, part, cls = '') => {
-  const lang = part === 'translation' ? 'ug' : 'en';
+  const lang = part === 'term' ? 'en' : 'ug';
   return btn('sound', '<span>' + lesson[part] + '</span><span class="speaker" aria-hidden="true">◖))</span>',
     'spoken ' + cls, 'data-id="' + lesson.id + '" data-part="' + part + '" lang="' + lang + '" dir="' +
     (lang === 'ug' ? 'rtl' : 'ltr') + '"');
@@ -164,24 +143,59 @@ async function playPronunciation(id, part, request) {
   soundStatus.textContent = '';
 }
 
+async function playUyghur(item, part, request) {
+  const rate = playbackRates[speedControl.value] ?? playbackRates.normal;
+  soundContext ??= new (window.AudioContext || window.webkitAudioContext)();
+  await soundContext.resume();
+  if (request !== playbackRequest) return;
+
+  soundStatus.textContent = 'ئاۋاز يۈكلىنىۋاتىدۇ… · Loading audio…';
+  const query = new URLSearchParams({id: item.id, part});
+  const response = await fetch('/api/uyghur-speech?' + query);
+  if (!response.ok || !response.headers.get('content-type')?.startsWith('audio/')) {
+    throw Error('Uyghur audio could not be loaded');
+  }
+
+  const buffer = await soundContext.decodeAudioData(await response.arrayBuffer());
+  if (request !== playbackRequest) return;
+  const source = soundContext.createBufferSource();
+  source.buffer = buffer;
+  source.playbackRate.value = rate;
+  source.connect(soundContext.destination);
+  source.start();
+  activeSource = [source];
+  soundStatus.textContent = '';
+}
+
 function readAloud(item, part) {
   const request = ++playbackRequest;
   activeSource?.forEach(source => source.stop());
   activeSource = null;
   soundStatus.textContent = '';
-  playPronunciation(item.id, part, request).catch(() => {
+  const playback = part === 'term' || part === 'example'
+    ? playPronunciation(item.id, part, request)
+    : playUyghur(item, part, request).catch(error => {
+      if (part === 'translation' && request === playbackRequest) {
+        return playPronunciation(item.id, part, request).then(() => {
+          if (request === playbackRequest) soundStatus.textContent = 'زاپاس ئاۋاز قويۇلدى. · Played saved pronunciation.';
+        });
+      }
+      throw error;
+    });
+
+  playback.catch(() => {
     if (request === playbackRequest) soundStatus.textContent = 'ئاۋازنى يۈكلىگىلى بولمىدى، قايتا سىناڭ. · Audio unavailable. Try again.';
   });
 }
 
 const example = lesson => '<div class="example"><div class="example-head"><span>EXAMPLE · مىسال</span>' + btn('sound', '◖)) Listen', 'sound', 'data-id="' + lesson.id + '" data-part="example" aria-label="Hear the English example"') +
-  '</div><p lang="en">' + lesson.example + '</p>' + ug(lesson.meaning) + '</div>';
+  '</div><p lang="en">' + lesson.example + '</p>' + '<p dir="rtl">' + spoken(lesson, 'meaning') + '</p>' + '</div>';
 
 function lessonExplanation(lesson) {
-  const answer = '<p class="definition" lang="en">' + lesson.definition + '</p>' + ug(lesson.explanation, 'definition');
+  const answer = '<p class="definition" lang="en">' + lesson.definition + '</p>' + '<p class="definition" dir="rtl">' + spoken(lesson, 'explanation') + '</p>';
   if (!lesson.question) return answer;
   return '<div class="interview-question"><p class="interview-label">' + lesson.topic + ' · Interview · خىزمەت سۆھبىتى</p>' +
-    '<p lang="en">' + lesson.question + '</p>' + ug(lesson.questionUg) +
+    '<p lang="en">' + lesson.question + '</p>' + '<p dir="rtl">' + spoken(lesson, 'questionUg') + '</p>' +
     '<details><summary>Sample answer · جاۋاب مىسالى</summary>' + answer + '</details></div>';
 }
 
@@ -216,7 +230,7 @@ function build(lesson) {
   const words = lesson.example.split(' ');
   const order = shuffled(words.map((_, i) => i), lesson.id + 17);
   const token = (id, action) => btn(action, words[id], 'token', 'data-index="' + id + '"');
-  return '<h3>Build the sentence</h3>' + ug('تۆۋەندىكى سۆزلەرنى چېكىپ ئىنگلىزچە جۈملە تۈزۈڭ.') + ug(lesson.meaning, 'hint') +
+  return '<h3>Build the sentence</h3>' + ug('تۆۋەندىكى سۆزلەرنى چېكىپ ئىنگلىزچە جۈملە تۈزۈڭ.') + '<p class="hint" dir="rtl">' + spoken(lesson, 'meaning') + '</p>' +
     '<div class="sentence" aria-label="Your sentence">' + (selected.length ? selected.map(id => token(id, 'remove')).join('') : '<span class="definition">Your sentence appears here</span>') +
     '</div><div class="bank" aria-label="Word bank">' + order.filter(id => !selected.includes(id)).map(id => token(id, 'add')).join('') +
     '</div><div class="controls">' + btn('hint','Hint · يىپ ئۇچى') + btn('check','Check · تەكشۈرۈش','primary') + '</div>';
@@ -228,7 +242,7 @@ function quiz(lesson) {
   const options = [lesson.id, ...[1, 2, 3].map(offset => peers[(position + offset) % peers.length].id)];
   const choices = shuffled(options, lesson.id + 42);
   return '<h3>Fill in the blank</h3>' + ug('بوش ئورۇنغا ماس كېلىدىغان سۆزنى تاللاڭ.') +
-    '<div class="example"><p lang="en">' + lesson.example.replace(lesson.blank, '_____') + '</p>' + ug(lesson.meaning) +
+    '<div class="example"><p lang="en">' + lesson.example.replace(lesson.blank, '_____') + '</p>' + '<p dir="rtl">' + spoken(lesson, 'meaning') + '</p>' +
     '</div><div class="choices">' + choices.map(id => btn('answer', lessons[id].term, 'choice','data-id="' + id + '"')).join('') + '</div>';
 }
 
