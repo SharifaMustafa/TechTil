@@ -143,6 +143,45 @@ async function playPronunciation(id, part, request) {
   soundStatus.textContent = '';
 }
 
+const uyghurClips = new Map();
+
+async function loadUyghurClip(url) {
+  let cache;
+  try { cache = await window.caches?.open('techtil-uyghur-audio'); } catch {}
+  if (cache) {
+    try {
+      const saved = await cache.match(url);
+      if (saved) return await soundContext.decodeAudioData(await saved.arrayBuffer());
+    } catch {}
+  }
+
+  const response = await fetch(url);
+  if (!response.ok || !response.headers.get('content-type')?.startsWith('audio/')) {
+    throw Error('Uyghur audio could not be loaded');
+  }
+
+  const bytes = await response.arrayBuffer();
+  const buffer = await soundContext.decodeAudioData(cache ? bytes.slice(0) : bytes);
+  if (cache) {
+    try {
+      await cache.put(url, new Response(bytes, {headers: {'Content-Type': 'audio/mpeg'}}));
+    } catch {}
+  }
+  return buffer;
+}
+
+function getUyghurClip(url) {
+  if (!uyghurClips.has(url)) {
+    const loading = loadUyghurClip(url);
+    uyghurClips.set(url, loading);
+    loading.catch(() => {
+      if (uyghurClips.get(url) === loading) uyghurClips.delete(url);
+    });
+    if (uyghurClips.size > 24) uyghurClips.delete(uyghurClips.keys().next().value);
+  }
+  return uyghurClips.get(url);
+}
+
 async function playUyghur(item, part, request) {
   const rate = playbackRates[speedControl.value] ?? playbackRates.normal;
   soundContext ??= new (window.AudioContext || window.webkitAudioContext)();
@@ -151,12 +190,7 @@ async function playUyghur(item, part, request) {
 
   soundStatus.textContent = 'ئاۋاز يۈكلىنىۋاتىدۇ… · Loading audio…';
   const query = new URLSearchParams({id: item.id, part, v: '3'});
-  const response = await fetch('/api/uyghur-speech?' + query);
-  if (!response.ok || !response.headers.get('content-type')?.startsWith('audio/')) {
-    throw Error('Uyghur audio could not be loaded');
-  }
-
-  const buffer = await soundContext.decodeAudioData(await response.arrayBuffer());
+  const buffer = await getUyghurClip('/api/uyghur-speech?' + query);
   if (request !== playbackRequest) return;
   const source = soundContext.createBufferSource();
   source.buffer = buffer;
