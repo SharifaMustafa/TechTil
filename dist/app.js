@@ -150,7 +150,7 @@ async function playUyghur(item, part, request) {
   if (request !== playbackRequest) return;
 
   soundStatus.textContent = 'ئاۋاز يۈكلىنىۋاتىدۇ… · Loading audio…';
-  const query = new URLSearchParams({id: item.id, part, v: '2'});
+  const query = new URLSearchParams({id: item.id, part, v: '3'});
   const response = await fetch('/api/uyghur-speech?' + query);
   if (!response.ok || !response.headers.get('content-type')?.startsWith('audio/')) {
     throw Error('Uyghur audio could not be loaded');

@@ -5,7 +5,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const parts = new Set(['translation', 'meaning', 'explanation', 'questionUg']);
-const uyghurVoiceId = 'dgeCtiGkvIwzoR09qzjl';
+const uyghurVoiceId = 'J17lijyP1BHYcM7ld0Rg';
 let lessons;
 
 function getText(id, part) {
@@ -29,7 +29,7 @@ module.exports = async function handler(req, res) {
 
   const {id, part, v} = req.query;
   if (typeof id !== 'string' || !/^(0|[1-9]\d{0,5})$/.test(id) || !parts.has(part)
-      || (v !== undefined && v !== '2') || Object.keys(req.query).length !== (v === undefined ? 2 : 3)) {
+      || (v !== undefined && v !== '2' && v !== '3') || Object.keys(req.query).length !== (v === undefined ? 2 : 3)) {
     return res.status(400).json({error: 'Invalid lesson or audio selection'});
   }
   const text = getText(Number(id), part);
