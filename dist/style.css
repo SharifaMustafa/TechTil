@@ -22,3 +22,5 @@ main{width:100%;max-width:1320px;margin:auto;padding:0 clamp(18px,4vw,56px)}.top
 .cloud-account{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:9px 12px;margin-bottom:12px}.cloud-account summary{cursor:pointer;color:var(--accent)}.cloud-account form{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}.cloud-account input{min-width:0;max-width:100%;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--ink);padding:8px}.cloud-account p{margin:8px 0 0}.cloud-account p:empty{display:none}.cloud-account button{margin-block:4px}
 
 button, input, select { font-family: "UKIJ Ekran", Inter, system-ui, sans-serif; }
+
+.brand .accent{color:#76e4d3}
