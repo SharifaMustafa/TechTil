@@ -5,7 +5,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const parts = new Set(['translation', 'meaning', 'explanation', 'questionUg']);
-const voiceIdPattern = /^[A-Za-z0-9_-]{1,80}$/;
+const uyghurVoiceId = 'dgeCtiGkvIwzoR09qzjl';
 let lessons;
 
 function getText(id, part) {
@@ -27,17 +27,16 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({error: 'Use GET'});
   }
 
-  const {id, part} = req.query;
+  const {id, part, v} = req.query;
   if (typeof id !== 'string' || !/^(0|[1-9]\d{0,5})$/.test(id) || !parts.has(part)
-      || Object.keys(req.query).length !== 2) {
+      || (v !== undefined && v !== '2') || Object.keys(req.query).length !== (v === undefined ? 2 : 3)) {
     return res.status(400).json({error: 'Invalid lesson or audio selection'});
   }
   const text = getText(Number(id), part);
   if (!text) return res.status(404).json({error: 'This lesson has no such audio'});
 
   const apiKey = process.env.ELEVENLABS_API_KEY;
-  const voiceId = process.env.ELEVENLABS_VOICE_ID || 'JBFqnCBsd6RMkjVDRZzb';
-  if (!apiKey || !voiceIdPattern.test(voiceId)) {
+  if (!apiKey) {
     return res.status(503).json({error: 'ElevenLabs audio is not configured'});
   }
 
@@ -47,7 +46,7 @@ module.exports = async function handler(req, res) {
       headers: {'xi-api-key': apiKey, 'Content-Type': 'application/json', Accept: 'audio/mpeg'},
       body: JSON.stringify({
         model_id: 'eleven_v4',
-        inputs: [{text, voice_id: voiceId}]
+        inputs: [{text, voice_id: uyghurVoiceId}]
       }),
       signal: AbortSignal.timeout(20000)
     });
