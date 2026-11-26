@@ -47,7 +47,6 @@ module.exports = async function handler(req, res) {
       headers: {'xi-api-key': apiKey, 'Content-Type': 'application/json', Accept: 'audio/mpeg'},
       body: JSON.stringify({
         model_id: 'eleven_v4',
-        language_code: 'ug',
         inputs: [{text, voice_id: voiceId}]
       }),
       signal: AbortSignal.timeout(20000)
