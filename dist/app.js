@@ -36,11 +36,29 @@ const glossaryPageSize = 24;
 const pathSize = 8;
 const workspace = document.querySelector('#workspace');
 const storageKey = 'techtil-completed-v1';
-let completed = new Set();
-try {
-  const saved = JSON.parse(localStorage.getItem(storageKey));
-  if (Array.isArray(saved)) completed = new Set(saved.filter(id => Number.isInteger(id) && lessons[id]));
-} catch {}
+const speedKey = 'techtil-audio-speed';
+let progressAccount = '';
+
+function localKey(key) {
+  return progressAccount ? key + ':' + progressAccount : key;
+}
+
+function readLocal(key) {
+  try { return localStorage.getItem(key); } catch { return null; }
+}
+
+function writeLocal(key, value) {
+  try { localStorage.setItem(key, value); } catch {}
+}
+
+function readLessons(key) {
+  try {
+    const saved = JSON.parse(readLocal(key));
+    return Array.isArray(saved) ? saved.filter(id => Number.isInteger(id) && lessons[id]) : [];
+  } catch { return []; }
+}
+
+let completed = new Set(readLessons(storageKey));
 let page = 'learn';
 let topic = topics[0];
 let index = lessons.findIndex(lesson => !completed.has(lesson.id));
@@ -67,13 +85,40 @@ const spoken = (lesson, part, cls = '') => {
 const soundStatus = document.querySelector('#sound-status');
 const speedControl = document.querySelector('#audio-speed');
 const playbackRates = {slow: 0.8, normal: 1, fast: 1.2};
-try {
-  const savedSpeed = localStorage.getItem('techtil-audio-speed');
-  if (Object.hasOwn(playbackRates, savedSpeed)) speedControl.value = savedSpeed;
-} catch {}
+function applySpeed(value) {
+  speedControl.value = Object.hasOwn(playbackRates, value) ? value : 'normal';
+}
+applySpeed(readLocal(speedKey));
 speedControl.addEventListener('change', () => {
-  try { localStorage.setItem('techtil-audio-speed', speedControl.value); } catch {}
+  writeLocal(localKey(speedKey), speedControl.value);
+  window.dispatchEvent(new Event('techtil-speed'));
 });
+
+window.techtilProgress = {
+  useAccount(id) {
+    progressAccount = id;
+    completed = new Set(readLessons(localKey(storageKey)));
+    applySpeed(readLocal(localKey(speedKey)));
+    render();
+  },
+  completed: () => [...completed],
+  merge(ids) {
+    for (const id of ids) {
+      if (Number.isInteger(id) && lessons[id]) completed.add(id);
+    }
+    writeLocal(localKey(storageKey), JSON.stringify([...completed]));
+    document.querySelector('#score').textContent = completed.size + ' / ' + lessons.length;
+    document.querySelector('#progress').value = completed.size;
+    const pathList = workspace.querySelector('.path');
+    if (pathList) pathList.outerHTML = path();
+  },
+  guest: () => readLessons(storageKey),
+  speed: () => speedControl.value,
+  setSpeed(value) {
+    applySpeed(value);
+    writeLocal(localKey(speedKey), speedControl.value);
+  }
+};
 let playbackRequest = 0;
 let soundContext;
 let activeSource;
@@ -339,7 +384,8 @@ workspace.addEventListener('click', event => {
     case 'answer':
       if (Number(id) === lesson.id) {
         completed.add(lesson.id);
-        try { localStorage.setItem(storageKey, JSON.stringify([...completed])); } catch {}
+        writeLocal(localKey(storageKey), JSON.stringify([...completed]));
+        window.dispatchEvent(new Event('techtil-completion'));
         document.querySelector('#score').textContent = completed.size + ' / ' + lessons.length;
         document.querySelector('#progress').value = completed.size;
         const pathList = workspace.querySelector('.path');

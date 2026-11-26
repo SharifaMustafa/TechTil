@@ -5,12 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Learn AI, IT and machine learning English vocabulary in Uyghur, one sentence at a time.">
 <title>TechTil — تېخنىكا ئىنگلىزچىسى</title>
-<link rel="stylesheet" href="style.css?v=interviews">
+<link rel="stylesheet" href="style.css?v=sync">
 <script src="vocabulary.js" defer></script>
 <script src="interview.js" defer></script>
 <script src="audio/pronunciation-natural.js" defer></script>
 <script src="audio/pronunciation-interview.js" defer></script>
-<script src="app.js?v=interviews" defer></script>
+<script src="app.js?v=sync" defer></script>
+<script src="supabase-config.js" defer></script>
+<script type="module" src="cloud-progress.js"></script>
 </head>
 <body>
 <div class="layout">
@@ -32,6 +34,20 @@
 <option value="fast">Fast 1.2× · تېز</option>
 </select>
 </label></header>
+<details id="cloud-account" class="cloud-account" hidden>
+<summary>Account &amp; sync · ھېسابات ۋە ماسقەدەملەش</summary>
+<form id="cloud-sign-in">
+<label for="cloud-email">Email · ئېلخەت</label>
+<input id="cloud-email" type="email" autocomplete="email" required>
+<button type="submit" class="primary">Send sign-in link · كىرىش ئۇلانمىسىنى ئەۋەتىش</button>
+</form>
+<div id="cloud-user" hidden>
+<p id="cloud-email-display"></p>
+<button type="button" id="cloud-import" class="secondary">Import this browser’s progress · بۇ كۆرگۈچتىكى نەتىجىنى قوشۇش</button>
+<button type="button" id="cloud-sign-out" class="secondary">Sign out · چىقىش</button>
+</div>
+<p id="cloud-status" role="status"></p>
+</details>
 <section class="hero">
 <div class="hero-content"><span class="tag">TECH ENGLISH</span><h1 dir="rtl">تېخنىكا ئىنگلىزچىسى</h1><p lang="en">Learn technical English, one sentence at a time.</p><div class="chips"><span>✦ AI</span><span>▣ IT</span><span>◈ Machine Learning</span></div></div>
 <div class="art" aria-hidden="true"><div class="orbit orbit1"></div><div class="orbit orbit2"></div><div class="orbit orbit3"></div><div class="core">✧</div><i class="star s1">✦</i><i class="star s2">✦</i><i class="star s3">✧</i><i class="star s4">+</i></div>
