@@ -52,8 +52,18 @@ module.exports = async function handler(req, res) {
       }),
       signal: AbortSignal.timeout(20000)
     });
-    if (!response.ok || !response.headers.get('content-type')?.startsWith('audio/')) {
-      return res.status(502).json({error: 'ElevenLabs could not generate audio'});
+    if (!response.ok) {
+      const payload = await response.json().catch(() => null);
+      const reason = payload?.detail?.status ?? payload?.detail?.code ?? payload?.error?.code;
+      const safeReason = typeof reason === 'string' && /^[a-z][a-z0-9_-]{0,79}$/i.test(reason) ? reason : undefined;
+      return res.status(502).json({
+        error: 'ElevenLabs could not generate audio',
+        providerStatus: response.status,
+        providerCode: safeReason
+      });
+    }
+    if (!response.headers.get('content-type')?.startsWith('audio/')) {
+      return res.status(502).json({error: 'ElevenLabs returned a non-audio response'});
     }
 
     const audio = Buffer.from(await response.arrayBuffer());
